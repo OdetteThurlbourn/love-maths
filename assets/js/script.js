@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let buttons = document.getElementsByTagName("button");
 
 // With the below in place it shows our script file is loading and event handlers are firing
- 
+
     // There is a more modern way of iteration than below syntax
     //for (let i = 0; i < buttons.length; i++)
     //This is a 'for loop'
@@ -24,9 +24,13 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 })
 
-
+/**
+ * The main game "loop", called when the script is first loaded
+ * and afterthe user's amswer has been processed
+ */
 function runGame() {
-
+    let num1 = Math.floor(Math.random() *25 ) + 1;
+    let num = Math.floor(Math.random() *25 ) + 1;
 }
 
 function checkAnswer() {
