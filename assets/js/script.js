@@ -1,30 +1,30 @@
 // Wait for the DOM to finish loading before running the game
 // Get the button elements and add event listeners to them
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     let buttons = document.getElementsByTagName("button");
 
-// With the below in place it shows our script file is loading and event handlers 
-// are firing
+    // With the below in place it shows our script file is loading and event handlers 
+    // are firing
 
     // There is a more modern way of iteration than below syntax
     //for (let i = 0; i < buttons.length; i++)
     //This is a 'for loop'
     for (let button of buttons) {
-        button.addEventListener("click", function() {
-                // 'button' represents an individual button element'
-                // add an 'if statement' check attribute of data type to see its value
-                // "this" referes to the addition button and what happens when it's clicked
-                if (this.getAttribute("data-type") === "submit") {
-                    checkAnswer();
-                } else {
-                    let gameType = this.getAttribute("data-type");
-                    runGame(gameType);
-                }
-            });
-        }
+        button.addEventListener("click", function () {
+            // 'button' represents an individual button element'
+            // add an 'if statement' check attribute of data type to see its value
+            // "this" referes to the addition button and what happens when it's clicked
+            if (this.getAttribute("data-type") === "submit") {
+                checkAnswer();
+            } else {
+                let gameType = this.getAttribute("data-type");
+                runGame(gameType);
+            }
+        });
+    }
 
-        runGame("addition");
+    runGame("addition");
 });
 
 /** 
@@ -43,6 +43,8 @@ function runGame(gameType) {
         displayAdditionQuestion(num1, num2);
     } else if (gameType === "multiply") {
         displayMultiplyQuestion(num1, num2);
+    } else if (gameType === "subtract") {
+        displaySubtractQuestion(num1, num2);
     } else {
         alert(`Unknown game type: ${gameType}`);
         throw `Unknown game type: ${gameType}. Aborting!`;
@@ -88,17 +90,20 @@ function calculateCorrectAnswer() {
         return [operand1 + operand2, "addition"];
     } else if (operator === "x") {
         return [operand1 * operand2, "multiply"];
+    } else if (operator === "-") {
+        return [operand1 - operand2, "subtract"];
     } else {
         alert(`Unimplemented operator ${operator}`);
-        throw `Unimplemented operator ${operator}.Aborting!`;
+        throw `Unimplemented operator ${operator}. Aborting!`;
     }
-    }
+
+}
 
 /**
  * Gets the current score from the DOM and increments it by 1
  */
 function incrementScore() {
-    
+
     let oldScore = parseInt(document.getElementById("score").innerText);
     document.getElementById("score").innerText = ++oldScore;
 }
@@ -119,7 +124,10 @@ function displayAdditionQuestion(operand1, operand2) {
     document.getElementById('operator').textContent = "+";
 }
 
-function displaySubtractQuestion() {
+function displaySubtractQuestion(operand1, operand2) {
+    document.getElementById('operand1').textContent = operand1 > operand2 ? operand1 : operand2;
+    document.getElementById('operand2').textContent = operand1 > operand2 ? operand1 : operand2;
+    document.getElementById('operator').textContent = "-";
 }
 
 function displayMultiplyQuestion(operand1, operand2) {
